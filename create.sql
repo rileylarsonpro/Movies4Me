@@ -20,13 +20,13 @@ CREATE TABLE Movies
 CREATE TABLE Platforms
 (
   PlatformId SERIAL,
-  Platform VARCHAR NOT NULL,
+  PlatformName VARCHAR NOT NULL,
   PRIMARY KEY (PlatformId)
 );
 
 CREATE TABLE Regions
 (
-  Region VARCHAR NOT NULL,
+  RegionName VARCHAR NOT NULL,
   RegionId SERIAL,
   PRIMARY KEY (RegionId)
 );
