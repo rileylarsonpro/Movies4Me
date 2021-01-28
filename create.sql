@@ -1,4 +1,3 @@
-Generate SQL
 CREATE TABLE Users
 (
   UserId SERIAL,
@@ -44,6 +43,7 @@ CREATE TABLE Reviews
   ReviewId SERIAL,
   ReviewText VARCHAR,
   Rating SERIAL,
+  CHECK (Rating<=5)
   DateWritten DATE NOT NULL,
   ApprovalStatus BOOLEAN,
   MovieId SERIAL,
