@@ -4,7 +4,7 @@ DELETE FROM Likes WHERE UserId < '4';
 
 DELETE FROM Has_avalible WHERE PlatformRegionId < '6';
 
-DELETE FROM Subscribed_to WHERE UserId < '5';
+DELETE FROM Subscribed_to WHERE UserId < '4';
 
 DELETE FROM Tags WHERE TagId = '1';
 DELETE FROM Tags WHERE TagId = '2'; 

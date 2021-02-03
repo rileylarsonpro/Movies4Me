@@ -26,10 +26,10 @@ INSERT INTO Reviews VALUES ('3', 'This movie was OK', '3', '1/28/2020', '1', '2'
 INSERT INTO Reviews VALUES ('4', '', '5', '1/28/2020', '0', '5', '1');
 
 INSERT INTO PlatformRegions VALUES ('1', '1', '1');
-INSERT INTO PlatformRegions VALUES ('2', '1', '2');
-INSERT INTO PlatformRegions VALUES ('3', '1', '3');
-INSERT INTO PlatformRegions VALUES ('4', '2', '1');
-INSERT INTO PlatformRegions VALUES ('5', '3', '1');
+INSERT INTO PlatformRegions VALUES ('2', '2', '1');
+INSERT INTO PlatformRegions VALUES ('3', '3', '1');
+INSERT INTO PlatformRegions VALUES ('4', '1', '2');
+INSERT INTO PlatformRegions VALUES ('5', '1', '3');
 
 INSERT INTO Tags VALUES ('R','1', '3');
 INSERT INTO Tags VALUES ('PG-13','2', '3');
@@ -43,16 +43,14 @@ INSERT INTO Subscribed_to VALUES ('2','1');
 INSERT INTO Subscribed_to VALUES ('3','1');
 INSERT INTO Subscribed_to VALUES ('1','4');
 INSERT INTO Subscribed_to VALUES ('2','4');
+INSERT INTO Subscribed_to VALUES ('3','5');
 
 INSERT INTO Has_avalible VALUES ('1','1');
 INSERT INTO Has_avalible VALUES ('1','2');
 INSERT INTO Has_avalible VALUES ('1','3');
-INSERT INTO Has_avalible VALUES ('1','4');
-INSERT INTO Has_avalible VALUES ('1','5');
 INSERT INTO Has_avalible VALUES ('2','1');
 INSERT INTO Has_avalible VALUES ('2','2');
 INSERT INTO Has_avalible VALUES ('2','3');
-INSERT INTO Has_avalible VALUES ('2','4');
 INSERT INTO Has_avalible VALUES ('2','5');
 INSERT INTO Has_avalible VALUES ('4','1');
 INSERT INTO Has_avalible VALUES ('4','2');
