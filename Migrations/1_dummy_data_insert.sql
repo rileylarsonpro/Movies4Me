@@ -44,6 +44,7 @@ INSERT INTO Subscribed_to VALUES ('3','1');
 INSERT INTO Subscribed_to VALUES ('1','4');
 INSERT INTO Subscribed_to VALUES ('2','4');
 INSERT INTO Subscribed_to VALUES ('3','5');
+INSERT INTO Subscribed_to VALUES ('1','2');
 
 INSERT INTO Has_avalible VALUES ('1','1');
 INSERT INTO Has_avalible VALUES ('1','2');
