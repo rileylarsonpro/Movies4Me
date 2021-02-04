@@ -68,3 +68,21 @@ ON t.tagid = bt.tagid
 INNER JOIN categories AS c
 ON c.categoryid = t.categoryid;
 
+-- users_seen_movies
+CREATE VIEW users_seen_movies AS
+SELECT u.userid, u.username, r.rating, r.movieid, m.releasedate, m.movietitle, m.movieposterurl 
+FROM users AS u
+INNER JOIN reviews AS r
+ON u.userid = r.userid
+INNER JOIN movies AS m
+ON m.movieid = r.movieid
+
+-- users_movies_suggestions
+CREATE VIEW users_movies_suggestions AS
+SELECT DISTINCT upm.userid, upm.username, upm.movieid, upm.releasedate, upm.movietitle, 
+upm.movieposterurl
+FROM users_platforms_movies AS upm
+INNER JOIN movie_has_tags AS mht
+ON upm.movieid = mht.movieid
+INNER JOIN users_likes_tags AS mlt
+ON mlt.tagid = mht.tagid;
