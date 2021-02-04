@@ -46,6 +46,25 @@ INNER JOIN movies AS m
 ON m.movieid = r.movieid
 WHERE r.rating > 3;
 
+-- user_likes_tags
+CREATE VIEW users_likes_tags AS
+SELECT u.userid, u.username, t.tagid, t.tagname, c.categoryname
+FROM users AS u
+INNER JOIN likes AS l
+ON u.userid = l.userid
+INNER JOIN tags AS t
+ON t.tagid = l.tagid
+INNER JOIN categories AS c
+ON c.categoryid = t.categoryid;
 
-
+-- movie_has_tags
+CREATE VIEW movie_has_tags AS
+SELECT m.movieid, m.movietitle, m.releasedate, m.movieposterurl, t.tagid, t.tagname, c.categoryname
+FROM movies AS m
+INNER JOIN belongs_to AS bt
+ON m.movieid = bt.movieid
+INNER JOIN tags AS t
+ON t.tagid = bt.tagid
+INNER JOIN categories AS c
+ON c.categoryid = t.categoryid;
 
