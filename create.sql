@@ -3,7 +3,7 @@ CREATE TABLE Users
   UserId SERIAL,
   Username VARCHAR NOT NULL,
   Password VARCHAR NOT NULL,
-  ModeratorStatus BOOLEAN,
+  ModeratorStatus BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (UserId),
   UNIQUE (Username)
 );
@@ -45,7 +45,7 @@ CREATE TABLE Reviews
   Rating SERIAL,
   CHECK (Rating<=5),
   DateWritten DATE NOT NULL,
-  ApprovalStatus BOOLEAN,
+  ApprovalStatus BOOLEAN NOT NULL DEFAULT 0,
   MovieId SERIAL,
   UserId SERIAL,
   PRIMARY KEY (ReviewId),
