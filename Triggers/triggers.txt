@@ -1,0 +1,12 @@
+CREATE OR REPLACE FUNCTION trigger_set_insert_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.datewritten = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_insert_timestamp
+BEFORE INSERT ON reviews
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_insert_timestamp();
