@@ -44,7 +44,7 @@ CREATE TABLE Reviews
   ReviewText VARCHAR,
   Rating SERIAL,
   CHECK (Rating<=5),
-  DateWritten DATE NOT NULL,
+  DateReviewed DATE NOT NULL,
   ApprovalStatus BOOLEAN NOT NULL DEFAULT 0,
   MovieId SERIAL,
   UserId SERIAL,
