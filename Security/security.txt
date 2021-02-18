@@ -1,3 +1,15 @@
+CREATE OR REPLACE FUNCTION public.signup(IN username text,IN password text)
+    RETURNS void
+    LANGUAGE 'sql'
+    VOLATILE SECURITY DEFINER
+    PARALLEL UNSAFE
+    COST 100
+AS $BODY$
+INSERT INTO users (username, password) VALUES
+    (signup.username, crypt(signup.password, gen_salt('md5')));
+$BODY$;
+
+
 CREATE OR REPLACE FUNCTION public.login(IN username text,IN password text)
     RETURNS jwt_token
     LANGUAGE 'plpgsql'
@@ -26,3 +38,10 @@ BEGIN
   RETURN result;
 END;
 $BODY$;
+
+
+ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS review_policy ON reviews;
+CREATE POLICY review_policy ON reviews
+    USING (TRUE)
+    WITH CHECK (userid = current_setting('request.jwt.claim.user_id')::INTEGER);

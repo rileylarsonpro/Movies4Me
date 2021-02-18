@@ -1,6 +1,10 @@
-CREATE OR REPLACE FUNCTION
-signup(username text, password text) RETURNS VOID
-AS $$
-  INSERT INTO users (username, password) VALUES
-    (signup.username, signup.password);
-$$ LANGUAGE sql SECURITY DEFINER;
+CREATE OR REPLACE FUNCTION public.signup(IN username text,IN password text)
+    RETURNS void
+    LANGUAGE 'sql'
+    VOLATILE SECURITY DEFINER
+    PARALLEL UNSAFE
+    COST 100
+AS $BODY$
+INSERT INTO users (username, password) VALUES
+    (signup.username, crypt(signup.password, gen_salt('md5')));
+$BODY$;
