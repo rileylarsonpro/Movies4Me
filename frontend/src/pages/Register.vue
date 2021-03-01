@@ -1,6 +1,7 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
+      <h4 class="center">Register</h4>
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -9,21 +10,12 @@
       <form name="form" @submit.prevent="handleRegister">
         <div>
           <div class="form-group">
-            <label for="username">Name</label>
+            <label for="username">Username</label>
             <input
-              v-model="name"
+              v-model="username"
               type="text"
               class="form-control"
-              name="name"
-            />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input
-              v-model="email"
-              type="email"
-              class="form-control"
-              name="email"
+              name="username"
             />
           </div>
           <div class="form-group">
@@ -60,8 +52,7 @@ export default {
   name: "Register",
   data() {
     return {
-      name: "",
-      email: "",
+      username: "",
       password: "",
       loading: false,
       message: "",
@@ -72,7 +63,7 @@ export default {
       this.message = "";
       this.loading = true;
 
-      Api.signup(this.email, this.password, this.name)
+      Api.signup(this.username, this.password)
         .then(() => {
           this.$router.push("/login");
         })
@@ -120,5 +111,8 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.center {
+  align-self: center;
 }
 </style>

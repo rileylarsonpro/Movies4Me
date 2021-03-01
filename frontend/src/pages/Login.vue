@@ -1,6 +1,7 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
+      <h4 class="center">Login</h4>
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
@@ -8,12 +9,12 @@
       />
       <form name="form" @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label for="username">Username</label>
           <input
-            v-model="email"
+            v-model="username"
             type="text"
             class="form-control"
-            name="email"
+            name="username"
           />
         </div>
         <div class="form-group">
@@ -52,7 +53,7 @@ export default {
   name: "Login",
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
       loading: false,
       message: "",
@@ -62,7 +63,7 @@ export default {
     handleLogin() {
       this.loading = true;
       this.message = "";
-      Api.login(this.email, this.password)
+      Api.login(this.username, this.password)
         .then((res) => {
           setJwtToken(res.data[0].token);
           if (this.$route.params.nextUrl != null) {
@@ -115,5 +116,8 @@ label {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
+}
+.center {
+  align-self: center;
 }
 </style>
