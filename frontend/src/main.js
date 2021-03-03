@@ -8,7 +8,7 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register";
-import Article from "./pages/Article";
+import Movie from "./pages/Movie";
 import AdminArticleAdd from "./components/AdminArticleAdd";
 import AdminArticleList from "./components/AdminArticleList";
 import AdminArticleEdit from "./components/AdminArticleEdit";
@@ -65,7 +65,7 @@ const checkAdmin = function (to, _, next){
 const router = new VueRouter({
   routes: [
     { path: "/", beforeEnter: checkAuth, component: Home },
-    { path: "/article/:id", component: Article },
+    { path: "/movie/:id", component: Movie },
     { path: "/login", component: Login },
     { path: "/logout", component: Logout },
     { path: "/register", component: Register },

@@ -14,6 +14,9 @@ class Api {
   getArticleDetail(id) {
     return axios.get(API_URL + `/articles?articleid=eq.${id}`);
   }
+  getMovieDetail(id) {
+    return axios.get(API_URL + `/movies?movieid=eq.${id}`);
+  }
 
   addArticle(article) {
     return axios.post(

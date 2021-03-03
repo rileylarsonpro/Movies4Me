@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div v-if="loading">Loading article....</div>
+    <div v-if="loading">Loading movie....</div>
     <div v-else>
-      <h1>{{ article.title }}</h1>
-      <p>{{ article.content }}</p>
+      <h1>{{ movie.movietitle }}</h1>
+      <p>{{ movie.releasedate }}</p>
     </div>
   </div>
 </template>
@@ -12,17 +12,17 @@
 import Api from "../api";
 
 export default {
-  name: "ArticleDetail",
+  name: "MovieDetail",
   data: function () {
     return {
       loading: false,
-      article: null,
+      movie: null,
     };
   },
   created: function () {
     this.loading = true;
-    Api.getArticleDetail(this.$route.params.id).then((res) => {
-      this.article = res.data[0];
+    Api.getMovieDetail(this.$route.params.id).then((res) => {
+      this.movie = res.data[0];
       this.loading = false;
     });
   },
