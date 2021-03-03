@@ -2,38 +2,45 @@
   <div>
     <b-breadcrumb>
       <b-breadcrumb-item to="/admin"> Admin </b-breadcrumb-item>
-      <b-breadcrumb-item active>Edit Article</b-breadcrumb-item>
+      <b-breadcrumb-item active>Edit Movie</b-breadcrumb-item>
     </b-breadcrumb>
-    <div v-if="loading">Loading article...</div>
+    <div v-if="loading">Loading movie...</div>
     <div v-else class="card card-container p-4">
       <form name="form" @submit.prevent="handleSave">
         <div>
           <div class="form-group">
-            <label for="username">Article Id</label>
+            <label for="username">Movie Id</label>
             <input
-              v-model="article.articleid"
-              type="text"
+              v-model="movie.movieid"
+              type="int"
               class="form-control"
-              name="id"
+              name="movieid"
               readonly
             />
           </div>
           <div class="form-group">
             <label for="username">Title</label>
             <input
-              v-model="article.title"
+              v-model="movie.movietitle"
               type="text"
               class="form-control"
-              name="title"
+              name="movietitle"
             />
           </div>
           <div class="form-group">
-            <label for="content">content</label>
-            <textarea
-              v-model="article.content"
+            <label >Release Date</label>
+            <input
+              v-model="movie.releasedate"
               class="form-control"
-              name="content"
-              rows="20"
+              name="releasedate"
+            />
+          </div>
+          <div class="form-group">
+            <label >Movie Poster URL</label>
+            <input
+              v-model="movie.movieposterurl"
+              class="form-control"
+              name="movieposterurl"
             />
           </div>
           <div class="form-group">
@@ -59,25 +66,25 @@
 import Api from "../api";
 
 export default {
-  name: "AdminArticleEdit",
+  name: "AdminMovieEdit",
   data: function () {
     return {
       loading: false,
       saving: false,
-      article: null,
+      movie: null,
     };
   },
   methods: {
-    loadArticleDetail() {
+    loadMovieDetail() {
       this.loading = true;
-      Api.getArticleDetail(this.$route.params.id).then((res) => {
-        this.article = res.data[0];
+      Api.getMovieDetail(this.$route.params.id).then((res) => {
+        this.movie = res.data[0];
         this.loading = false;
       });
     },
     handleSave() {
       this.saving = true;
-      Api.updateArticle(this.article)
+      Api.updateMovie(this.movie)
         .then(() => {
           this.saving = false;
           this.$router.push("/admin");
@@ -92,7 +99,7 @@ export default {
     },
   },
   created: function () {
-    this.loadArticleDetail();
+    this.loadMovieDetail();
   },
 };
 </script>

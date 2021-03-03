@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-if="loading">Loading articles....</div>
+    <div v-if="loading">Loading movies....</div>
     <router-link to="admin/add" tag="b-button" class="float-right"
-      >Add article</router-link
+      >Add movie</router-link
     >
     <br /><br />
     <b-table-simple hover small caption-top responsive>
@@ -10,30 +10,25 @@
         <b-tr>
           <b-th>ID</b-th>
           <b-th>Title</b-th>
-          <b-th>Published</b-th>
+          <b-th>Release Date</b-th>
           <b-th>Actions</b-th>
         </b-tr>
       </b-thead>
       <b-tbody>
-        <b-tr v-for="article in articles" :key="article.articleid">
-          <b-td>{{ article.articleid }}</b-td>
-          <b-td>{{ article.title }}</b-td>
-          <b-td>{{ article.ispublished }}</b-td>
+        <b-tr v-for="movie in movies" :key="movie.movieid">
+          <b-td>{{ movie.movieid }}</b-td>
+          <b-td>{{ movie.movietitle }}</b-td>
+          <b-td>{{ movie.releasedate }}</b-td>
           <b-td>
             <b-button-group>
               <b-button
                 variant="outline-primary"
-                :to="`/admin/edit/${article.articleid}`"
+                :to="`/admin/edit/${movie.movieid}`"
                 >Edit</b-button
               >
               <b-button
-                variant="outline-info"
-                @click="() => publishArticle(article.articleid)"
-                >Publish</b-button
-              >
-              <b-button
                 variant="outline-danger"
-                @click="() => deleteArticle(article.articleid)"
+                @click="() => deleteMovie(movie.movieid)"
                 >Delete</b-button
               >
             </b-button-group>
@@ -48,26 +43,27 @@
 import Api from "../api";
 
 export default {
-  name: "AdminArticleList",
+  name: "AdminMovieList",
   data: function () {
     return {
       loading: false,
-      articles: [],
+      movies: [],
     };
   },
   created: function () {
-    this.loadArticles();
+    this.loadMovies();
   },
 
   methods: {
-    loadArticles() {
+    loadMovies() {
       this.loading = true;
-      this.articles = [];
-      Api.getArticles().then((res) => {
-        this.articles = res.data;
+      this.movies = [];
+      Api.getMovies().then((res) => {
+        this.movies = res.data;
         this.loading = false;
       });
     },
+    /*
     publishArticle(articleid) {
       Api.publishArticle(articleid)
         .then(() => {
@@ -76,12 +72,12 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
+    },*/
 
-    deleteArticle(articleid) {
-      Api.deleteArticle(articleid)
+    deleteMovie(movieid) {
+      Api.deleteMovie(movieid)
         .then(() => {
-          this.loadArticles();
+          this.loadMovies();
         })
         .catch((err) => {
           console.log(err);

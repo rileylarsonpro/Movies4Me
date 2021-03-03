@@ -7,20 +7,26 @@ class Api {
   getUser(id) {
     return axios.get(API_URL + `/users?userid=eq.${id}`)
   }
-  getArticles() {
-    return axios.get(API_URL + "/articles", {});
-  }
   getMovies() {
     return axios.get(API_URL + "/movies", {});
   }
 
-  getArticleDetail(id) {
-    return axios.get(API_URL + `/articles?articleid=eq.${id}`);
-  }
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
-
+  addMovie(movie){
+    return axios.post(
+      API_URL + "/movies",
+      {
+        ...movie,
+        // add user id from JWT token
+      },
+      {
+        headers: authHeader(),
+      }
+    );
+  }
+  
   addArticle(article) {
     return axios.post(
       API_URL + "/articles",
@@ -44,9 +50,23 @@ class Api {
       }
     );
   }
+  updateMovie(movie) {
+    return axios.patch(
+      API_URL + `/movies?movieid=eq.${movie.movieid}`,
+      movie,
+      {
+        headers: authHeader(),
+      }
+    );
+  }
 
   deleteArticle(id) {
     return axios.delete(API_URL + `/articles?articleid=eq.${id}`, {
+      headers: authHeader(),
+    });
+  }
+  deleteMovie(id) {
+    return axios.delete(API_URL + `/movies?movieid=eq.${id}`, {
       headers: authHeader(),
     });
   }

@@ -9,9 +9,9 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import Movie from "./pages/Movie";
-import AdminArticleAdd from "./components/AdminArticleAdd";
-import AdminArticleList from "./components/AdminArticleList";
-import AdminArticleEdit from "./components/AdminArticleEdit";
+import AdminMovieAdd from "./components/AdminMovieAdd";
+import AdminMovieList from "./components/AdminMovieList";
+import AdminMovieEdit from "./components/AdminMovieEdit";
 
 Vue.config.productionTip = false;
 
@@ -74,9 +74,9 @@ const router = new VueRouter({
       component: Admin,
       beforeEnter: checkAdmin,
       children: [
-        { path: "add", component: AdminArticleAdd },
-        { path: "edit/:id", component: AdminArticleEdit },
-        { path: "", component: AdminArticleList },
+        { path: "add", component: AdminMovieAdd },
+        { path: "edit/:id", component: AdminMovieEdit },
+        { path: "", component: AdminMovieList },
       ],
     },
   ],

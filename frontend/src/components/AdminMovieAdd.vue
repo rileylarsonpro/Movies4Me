@@ -2,13 +2,13 @@
   <div>
     <b-breadcrumb>
       <b-breadcrumb-item to="/admin"> Admin </b-breadcrumb-item>
-      <b-breadcrumb-item active>Add Article</b-breadcrumb-item>
+      <b-breadcrumb-item active>Add Movie</b-breadcrumb-item>
     </b-breadcrumb>
     <div class="card card-container p-4">
       <form name="form" @submit.prevent="handleAdd">
         <div>
           <div class="form-group">
-            <label for="username">Title</label>
+            <label >Movie Title</label>
             <input
               v-model="title"
               type="text"
@@ -17,12 +17,21 @@
             />
           </div>
           <div class="form-group">
-            <label for="content">content</label>
-            <textarea
-              v-model="content"
+            <label >Movie Release Date</label>
+            <input
+              v-model="releasedate"
+              type="date"
               class="form-control"
-              name="content"
-              rows="20"
+              name="releasedate"
+            />
+          </div>
+          <div class="form-group">
+            <label>Movie Poster URL</label>
+            <input
+              v-model="posterURL"
+              type="text"
+              class="form-control"
+              name="posterURL"
             />
           </div>
           <div class="form-group">
@@ -31,7 +40,7 @@
                 v-show="loading"
                 class="spinner-border spinner-border-sm"
               ></span>
-              <span>Add Article</span>
+              <span>Add Movie</span>
             </button>
           </div>
         </div>
@@ -48,11 +57,12 @@
 import Api from "../api";
 
 export default {
-  name: "AdminArticleAdd",
+  name: "AdminMovieAdd",
   data() {
     return {
       title: "",
-      content: "",
+      releasedate: "",
+      posterURL: "",
       loading: false,
       message: "",
     };
@@ -61,7 +71,7 @@ export default {
     handleAdd() {
       this.loading = true;
       this.message = "";
-      Api.addArticle({ title: this.title, content: this.content })
+      Api.addMovie({ movietitle: this.title, releasedate: this.releasedate.toString() , movieposterurl: this.posterURL})
         .then(() => {
           this.loading = false;
           this.$router.push("/admin/");
