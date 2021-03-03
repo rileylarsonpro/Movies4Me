@@ -10,6 +10,9 @@ class Api {
   getArticles() {
     return axios.get(API_URL + "/articles", {});
   }
+  getMovies() {
+    return axios.get(API_URL + "/movies", {});
+  }
 
   getArticleDetail(id) {
     return axios.get(API_URL + `/articles?articleid=eq.${id}`);

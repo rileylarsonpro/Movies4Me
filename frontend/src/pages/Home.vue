@@ -1,14 +1,14 @@
 <template>
   <div>
     <b-jumbotron>
-      <p>Welcome to the IT350 blog!</p>
+      <p>Welcome to Movies 4 Me!</p>
     </b-jumbotron>
     <br />
-    <div v-if="loading">Loading articles....</div>
+    <div v-if="loading">Loading movies....</div>
     <ul v-else>
-      <li v-for="article in articles" :key="article.articleid">
-        <router-link :to="`article/${article.articleid}`">{{
-          article.title
+      <li v-for="movie in movies" :key="movie.movieid">
+        <router-link :to="`movie/${movie.movieid}`">{{
+          movie.movietitle
         }}</router-link>
       </li>
     </ul>
@@ -23,13 +23,13 @@ export default {
   data: function () {
     return {
       loading: false,
-      articles: [],
+      movies: [],
     };
   },
   created: function () {
     this.loading = true;
-    Api.getArticles().then((res) => {
-      this.articles = res.data;
+    Api.getMovies().then((res) => {
+      this.movies = res.data;
       this.loading = false;
     });
   },
