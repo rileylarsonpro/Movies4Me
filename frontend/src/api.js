@@ -7,6 +7,7 @@ class Api {
   getUser(id) {
     return axios.get(API_URL + `/users?userid=eq.${id}`)
   }
+
   getMovies() {
     return axios.get(API_URL + "/movies", {});
   }
@@ -14,6 +15,7 @@ class Api {
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
+
   addMovie(movie){
     return axios.post(
       API_URL + "/movies",
@@ -27,11 +29,11 @@ class Api {
     );
   }
   
-  addArticle(article) {
+  addReview(review) {
     return axios.post(
-      API_URL + "/articles",
+      API_URL + "/reviews",
       {
-        ...article,
+        ...review,
         // add user id from JWT token
         userid: getUserIdFromToken(getJwtToken()),
       },
@@ -41,15 +43,6 @@ class Api {
     );
   }
 
-  updateArticle(article) {
-    return axios.patch(
-      API_URL + `/articles?articleid=eq.${article.articleid}`,
-      article,
-      {
-        headers: authHeader(),
-      }
-    );
-  }
   updateMovie(movie) {
     return axios.patch(
       API_URL + `/movies?movieid=eq.${movie.movieid}`,
@@ -60,25 +53,10 @@ class Api {
     );
   }
 
-  deleteArticle(id) {
-    return axios.delete(API_URL + `/articles?articleid=eq.${id}`, {
-      headers: authHeader(),
-    });
-  }
   deleteMovie(id) {
     return axios.delete(API_URL + `/movies?movieid=eq.${id}`, {
       headers: authHeader(),
     });
-  }
-
-  publishArticle(id) {
-    return axios.post(
-      API_URL + "/rpc/publish",
-      { id: id },
-      {
-        headers: authHeader(),
-      }
-    );
   }
 
   login(username, password) {
