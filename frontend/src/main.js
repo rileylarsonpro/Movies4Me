@@ -18,6 +18,8 @@ Vue.config.productionTip = false;
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import { getJwtToken } from "./auth";
+import { getUserIdFromToken } from "./auth";
+import Api from "./api";
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
@@ -36,9 +38,33 @@ const checkAuth = function(to, _, next) {
   }
 };
 
+const checkAdmin = function (to, _, next){
+  const token = getJwtToken();
+  if (token === undefined || token === "undefined" || token === null) {
+    // redirect to login because we don't have token yet
+    next({
+      path: "/login",
+      params: { nextUrl: to.fullPath },
+    });
+  } else {
+    let userId = getUserIdFromToken(token);
+    Api.getUser(userId)        
+    .then((res) => {
+      if (!res.data[0].moderatorstatus) {
+        next({
+          path: "/",
+          params: { nextUrl: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    });
+  }
+}
+
 const router = new VueRouter({
   routes: [
-    { path: "/", component: Home },
+    { path: "/", beforeEnter: checkAuth, component: Home },
     { path: "/article/:id", component: Article },
     { path: "/login", component: Login },
     { path: "/logout", component: Logout },
@@ -46,7 +72,7 @@ const router = new VueRouter({
     {
       path: "/admin",
       component: Admin,
-      beforeEnter: checkAuth,
+      beforeEnter: checkAdmin,
       children: [
         { path: "add", component: AdminArticleAdd },
         { path: "edit/:id", component: AdminArticleEdit },
