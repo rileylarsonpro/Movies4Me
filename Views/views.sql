@@ -27,7 +27,7 @@ FROM users_subscriptions AS us
 INNER JOIN platform_region_movies AS prm
 ON us.platformregionid = prm.platformregionid
 
--- user_reviews_moives
+-- users_reviews_moives
 CREATE VIEW users_reviews_movies AS
 SELECT u.userid, u.username, r.reviewid, r.reviewtext, r.rating, r.datewritten, r.approvalstatus, r.movieid, m.releasedate, m.movietitle, m.movieposterurl 
 FROM users AS u
