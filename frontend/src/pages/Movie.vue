@@ -9,7 +9,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <p>{{ movie.releasedate }}</p>
+          <p>{{ movie.releasedate.substring(0, 4) }}</p>
         </b-col>
       </b-row>
       <b-row>
@@ -44,12 +44,28 @@
             {{ message }}
           </div>
         </b-col>
+        <b-col>
+          <h3>Reviews</h3>
+          <b-container c v-for="review in movieReviews" :key="review.reviewid">
+              <div><b>{{ review.username }}- {{ review.rating }}/5</b></div>
+            <div>{{ review.datewritten }}</div>
+              <div><em>{{ review.reviewtext }}</em></div>
+              <br>
+          </b-container>
+        </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <p v-for="tag in movieTags" :key="tag.tagid">
-            {{ tag.categoryname }}: {{tag.tagname}}
-          </p>
+          <div v-for="tag in movieTags" :key="tag.tagid">
+            {{ tag.categoryname }}: {{ tag.tagname }}
+          </div>
+          <br>
+          <div v-if="movieServices != []">
+            <b>Streaming on:</b>
+            <div v-for="service in movieServices" :key="service.platformregionid">
+            {{ service.regionname }} {{ service.platformname }}
+          </div>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -71,7 +87,9 @@ export default {
       movie: null,
       rating: 0,
       reviewText: "",
-      movieTags: []
+      movieTags: [],
+      movieReviews: [],
+      movieServices: [],
     };
   },
   created: function () {
@@ -81,9 +99,14 @@ export default {
       this.loading = false;
       Api.getMovieTags(this.movie.movieid).then((res) => {
         this.movieTags = res.data;
-      })
+      });
+      Api.getReviews(this.movie.movieid).then((res) => {
+        this.movieReviews = res.data;
+      });
+      Api.getServicesForMovie(this.movie.movieid).then((res) => {
+        this.movieServices = res.data;
+      });
     });
-    
   },
   methods: {
     setRating(rating) {
@@ -108,7 +131,8 @@ export default {
           }
           this.loading = false;
         });
-      console.log("rating:", this.rating);
+      this.message="Your review has been sent to admin for approval";
+
     },
   },
 };
