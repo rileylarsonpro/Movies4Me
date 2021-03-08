@@ -45,6 +45,13 @@
           </div>
         </b-col>
       </b-row>
+      <b-row>
+        <b-col>
+          <p v-for="tag in movieTags" :key="tag.tagid">
+            {{ tag.categoryname }}: {{tag.tagname}}
+          </p>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -63,7 +70,8 @@ export default {
       loading: false,
       movie: null,
       rating: 0,
-      reviewText: ""
+      reviewText: "",
+      movieTags: []
     };
   },
   created: function () {
@@ -71,7 +79,11 @@ export default {
     Api.getMovieDetail(this.$route.params.id).then((res) => {
       this.movie = res.data[0];
       this.loading = false;
+      Api.getMovieTags(this.movie.movieid).then((res) => {
+        this.movieTags = res.data;
+      })
     });
+    
   },
   methods: {
     setRating(rating) {
@@ -81,7 +93,7 @@ export default {
     handleAdd() {
       this.loading = true;
       this.message = "";
-      Api.addReview({ 
+      Api.addReview({
         reviewtext: this.reviewText,
         rating: this.rating,
         movieid: this.movie.movieid,

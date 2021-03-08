@@ -16,6 +16,10 @@ class Api {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
 
+  getMovieTags(id) {
+    return axios.get(API_URL + `/movie_has_tags?movieid=eq.${id}`);
+  }
+
   addMovie(movie){
     return axios.post(
       API_URL + "/movies",
