@@ -46,11 +46,10 @@
         </b-col>
         <b-col>
           <h3>Reviews</h3>
-          <b-container c v-for="review in movieReviews" :key="review.reviewid">
+          <b-container class="border border-dark rounded" v-for="review in movieReviews" :key="review.reviewid">
               <div><b>{{ review.username }}- {{ review.rating }}/5</b></div>
             <div>{{ review.datewritten }}</div>
               <div><em>{{ review.reviewtext }}</em></div>
-              <br>
           </b-container>
         </b-col>
       </b-row>

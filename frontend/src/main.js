@@ -12,7 +12,7 @@ import Movie from "./pages/Movie";
 import AdminMovieAdd from "./components/AdminMovieAdd";
 import AdminMovieList from "./components/AdminMovieList";
 import AdminMovieEdit from "./components/AdminMovieEdit";
-
+import AdminApproveReviews from "./components/AdminApproveReviews";
 Vue.config.productionTip = false;
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -77,6 +77,7 @@ const router = new VueRouter({
         { path: "add", component: AdminMovieAdd },
         { path: "edit/:id", component: AdminMovieEdit },
         { path: "", component: AdminMovieList },
+        { path: "reviews", component: AdminApproveReviews },
       ],
     },
   ],

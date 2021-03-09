@@ -36,7 +36,19 @@ class Api {
   getReviews(movieid) {
     return axios.get(API_URL + `/users_reviews_movies?movieid=eq.${movieid}&approvalstatus=eq.1`);
   }
-  
+  getNonAprovedReviews(){
+    return axios.get(API_URL + `/users_reviews_movies?approvalstatus=eq.0`);
+  }
+  publishReview(reviewid) {
+    return axios.patch(
+      API_URL + `/reviews?reviewid=eq.${reviewid}`, 
+      { 
+        approvalstatus: true
+      },
+      {
+        headers: authHeader(),
+      })
+  }
   addReview(review) {
     return axios.post(
       API_URL + "/reviews",
@@ -54,7 +66,7 @@ class Api {
   getServicesForMovie(movieid) {
     return axios.get(API_URL + `/platform_region_movies?movieid=eq.${movieid}`);
   }
-  
+
   updateMovie(movie) {
     return axios.patch(
       API_URL + `/movies?movieid=eq.${movie.movieid}`,
