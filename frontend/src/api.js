@@ -30,7 +30,6 @@ class Api {
   getUserLikesTags(userid) {
     return axios.get(API_URL + `/users_likes_tags?userid=eq.${userid}`)
   }
-
   getServicesForMovie(movieid) {
     return axios.get(API_URL + `/platform_region_movies?movieid=eq.${movieid}`);
   }
@@ -39,8 +38,9 @@ class Api {
     return axios.get(API_URL + `/users_reviews_movies?movieid=eq.${movieid}&approvalstatus=eq.1`);
   }
   userlikesTag(userid, tagid){
-    return axios.post(API_URL + `/likes`, { userid, tagid });
+    return axios.post(API_URL + `/likes`, { userid, tagid }, {headers: authHeader()});
   }
+
   addReview(review) {
     return axios.post(
       API_URL + "/reviews",
@@ -54,7 +54,34 @@ class Api {
       }
     );
   }
+  getUserSubscriptions(userid) {
+    return axios.get(API_URL + `/users_subscriptions?userid=eq.${userid}`)
+  }
+  getPlatformRegions() {
+    return axios.get(API_URL + `/platform_region_name`)
+  }
+  userHasService(userid, platformregionid) {
+    return axios.post(API_URL + `/subscribed_to`, 
+    {
+      userid, platformregionid
+    },
+    {
+      headers: authHeader(),
+    })
+  }
 
+  deleteUserService(userid, platformregionid) {
+    return axios.delete(API_URL + `/subscribed_to?userid=eq.${userid}&platformregionid=eq.${platformregionid}`, 
+    {
+      headers: authHeader(),
+    });
+  }
+  deleteUserTag(userid, tagid) {
+    return axios.delete(API_URL + `/likes?userid=eq.${userid}&tagid=eq.${tagid}`, 
+    {
+      headers: authHeader(),
+    });
+  }
   // ADMIN FUNCTIONS:
   addMovie(movie){
     return axios.post(
