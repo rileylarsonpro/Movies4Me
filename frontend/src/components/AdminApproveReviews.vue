@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="loading">Loading movies....</div>
-    <router-link to="admin" tag="b-button" class="float-right"
+    <router-link to="/admin" tag="b-button" class="float-right"
       >Admin Movie</router-link
     >
     <br /><br />
