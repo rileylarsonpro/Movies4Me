@@ -9,9 +9,11 @@ class Api {
   }
 
   getMovies() {
-    return axios.get(API_URL + "/movies", {});
+    return axios.get(API_URL + "/movies");
   }
-
+  getSuggestedMovies(userid) {
+    return axios.get(API_URL + `/users_movies_suggestions?userid=eq.${userid}`)
+  }
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
