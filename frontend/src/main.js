@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import Movie from "./pages/Movie";
+import User from "./pages/User";
 import AdminMovieAdd from "./components/AdminMovieAdd";
 import AdminMovieList from "./components/AdminMovieList";
 import AdminMovieEdit from "./components/AdminMovieEdit";
@@ -69,6 +70,7 @@ const router = new VueRouter({
     { path: "/login", component: Login },
     { path: "/logout", component: Logout },
     { path: "/register", component: Register },
+    { path: "/user", component: User },
     {
       path: "/admin",
       component: Admin,

@@ -20,11 +20,15 @@ class Api {
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
+
   getTags() {
     return axios.get(API_URL + `/tags`);
   }
   getMovieTags(id) {
     return axios.get(API_URL + `/movie_has_tags?movieid=eq.${id}`);
+  }
+  getUserLikesTags(userid) {
+    return axios.get(API_URL + `/users_likes_tags?userid=eq.${userid}`)
   }
 
   getServicesForMovie(movieid) {
