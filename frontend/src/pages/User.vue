@@ -11,22 +11,22 @@
         <b-col>
           <h4>Your Streaming Services :</h4>
           <container>
-          <b-row
-            class="border border-info rounded p-1"
-            v-for="service in userServices"
-            :key="service.platformregionid"
-          >
-          <b-col>
-            {{ service.regionname }} {{ service.platformname }}
-          </b-col>
-          <b-col-sm>
-            <b-button
-              variant="outline-danger"
-              @click="() => deleteService(service.platformregionid)"
-              >Remove</b-button
+            <b-row
+              class="border border-info rounded p-1"
+              v-for="service in userServices"
+              :key="service.platformregionid"
             >
-          </b-col-sm>
-          </b-row>
+              <b-col>
+                {{ service.regionname }} {{ service.platformname }}
+              </b-col>
+              <b-col-sm>
+                <b-button
+                  variant="outline-danger"
+                  @click="() => deleteService(service.platformregionid)"
+                  >Remove</b-button
+                >
+              </b-col-sm>
+            </b-row>
           </container>
           <form @submit.prevent="handleServiceAdd">
             Add Another Service:
@@ -52,25 +52,24 @@
           </form>
         </b-col>
         <b-col>
-
           <h4>Tags you like:</h4>
           <container>
-          <b-row
-            class="border border-primary rounded p-1"
-            v-for="tag in userTags"
-            :key="tag.tagid"
-          >
-          <b-col>
-            {{ tag.tagname }}
-          </b-col>
-          <b-col-sm>
-            <b-button
-              variant="outline-danger"
-              @click="() => deleteTag(tag.tagid)"
-              >Remove</b-button
+            <b-row
+              class="border border-primary rounded p-1"
+              v-for="tag in userTags"
+              :key="tag.tagid"
             >
-          </b-col-sm>
-          </b-row>
+              <b-col>
+                {{ tag.tagname }}
+              </b-col>
+              <b-col-sm>
+                <b-button
+                  variant="outline-danger"
+                  @click="() => deleteTag(tag.tagid)"
+                  >Remove</b-button
+                >
+              </b-col-sm>
+            </b-row>
           </container>
           <form @submit.prevent="handleTagAdd">
             Add new Tag to likes:
@@ -93,17 +92,26 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-container>
+      <h3>Movies Suggested For You:</h3>
+      <span v-for="movie in suggestedMovies" :key="movie.movieid">
+        <movie-poster :movie="movie"></movie-poster>
+      </span>
+    </b-container>
   </div>
 </template>
 
 <script>
 import Api from "../api";
+import MoviePoster from "../components/MoviePoster";
 import { getUserIdFromToken } from "../auth";
 import { getJwtToken } from "../auth";
 
 export default {
   name: "MovieDetail",
-  components: {},
+  components: {
+    MoviePoster,
+  },
   data: function () {
     return {
       loading: false,
@@ -116,6 +124,7 @@ export default {
       services: [],
       selectedTag: null,
       selectedService: null,
+      suggestedMovies: []
     };
   },
   created: function () {
@@ -143,6 +152,9 @@ export default {
       Api.getPlatformRegions().then((res) => {
         this.services = res.data;
       });
+      Api.getSuggestedMovies(getUserIdFromToken(getJwtToken())).then((res) => {
+        this.suggestedMovies = res.data;
+      });
     },
     likeTags() {
       let userId = getUserIdFromToken(getJwtToken());
@@ -156,11 +168,15 @@ export default {
       Api.userlikesTag(getUserIdFromToken(getJwtToken()), tagid).then(() => {
         this.loadUserDetail();
       });
-       this.selectedTag = null;
+      this.selectedTag = null;
     },
     handleServiceAdd() {
-      let platformRegionId = this.services.find((service) =>`${service.regionname} ${service.platformname}` === this.selectedService).platformregionid;
-      console.log("PlatformRegion", platformRegionId)
+      let platformRegionId = this.services.find(
+        (service) =>
+          `${service.regionname} ${service.platformname}` ===
+          this.selectedService
+      ).platformregionid;
+      console.log("PlatformRegion", platformRegionId);
       Api.userHasService(
         getUserIdFromToken(getJwtToken()),
         platformRegionId
@@ -169,13 +185,16 @@ export default {
       });
       this.selectedService = null;
     },
-    deleteTag(tagid){
-        Api.deleteUserTag( getUserIdFromToken(getJwtToken()), tagid).then(() => {
+    deleteTag(tagid) {
+      Api.deleteUserTag(getUserIdFromToken(getJwtToken()), tagid).then(() => {
         this.loadUserDetail();
       });
     },
     deleteService(platformRegionId) {
-      Api.deleteUserService( getUserIdFromToken(getJwtToken()), platformRegionId).then(() => {
+      Api.deleteUserService(
+        getUserIdFromToken(getJwtToken()),
+        platformRegionId
+      ).then(() => {
         this.loadUserDetail();
       });
     },

@@ -51,7 +51,6 @@ export default {
       this.movies = res.data;
     });
     Api.getSeenMovies(getUserIdFromToken(getJwtToken())).then((res) => {
-      console.log("SEEN", res.data)
       this.seenMovies = res.data;
     });
     
