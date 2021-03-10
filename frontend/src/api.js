@@ -15,39 +15,22 @@ class Api {
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }
-
+  getTags() {
+    return axios.get(API_URL + `/tags`);
+  }
   getMovieTags(id) {
     return axios.get(API_URL + `/movie_has_tags?movieid=eq.${id}`);
   }
 
-  addMovie(movie){
-    return axios.post(
-      API_URL + "/movies",
-      {
-        ...movie,
-        // add user id from JWT token
-      },
-      {
-        headers: authHeader(),
-      }
-    );
+  getServicesForMovie(movieid) {
+    return axios.get(API_URL + `/platform_region_movies?movieid=eq.${movieid}`);
   }
 
   getReviews(movieid) {
     return axios.get(API_URL + `/users_reviews_movies?movieid=eq.${movieid}&approvalstatus=eq.1`);
   }
-  getNonAprovedReviews(){
-    return axios.get(API_URL + `/users_reviews_movies?approvalstatus=eq.0`);
-  }
-  publishReview(reviewid) {
-    return axios.patch(
-      API_URL + `/reviews?reviewid=eq.${reviewid}`, 
-      { 
-        approvalstatus: true
-      },
-      {
-        headers: authHeader(),
-      })
+  userlikesTag(userid, tagid){
+    return axios.post(API_URL + `/likes`, { userid, tagid });
   }
   addReview(review) {
     return axios.post(
@@ -63,8 +46,32 @@ class Api {
     );
   }
 
-  getServicesForMovie(movieid) {
-    return axios.get(API_URL + `/platform_region_movies?movieid=eq.${movieid}`);
+  // ADMIN FUNCTIONS:
+  addMovie(movie){
+    return axios.post(
+      API_URL + "/movies",
+      {
+        ...movie,
+        // add user id from JWT token
+      },
+      {
+        headers: authHeader(),
+      }
+    );
+  }
+  getNonAprovedReviews(){
+    return axios.get(API_URL + `/users_reviews_movies?approvalstatus=eq.0`);
+  }
+
+  publishReview(reviewid) {
+    return axios.patch(
+      API_URL + `/reviews?reviewid=eq.${reviewid}`, 
+      { 
+        approvalstatus: true
+      },
+      {
+        headers: authHeader(),
+      })
   }
 
   updateMovie(movie) {
@@ -76,13 +83,21 @@ class Api {
       }
     );
   }
-
+  
   deleteMovie(id) {
     return axios.delete(API_URL + `/movies?movieid=eq.${id}`, {
       headers: authHeader(),
     });
   }
-
+  
+  addTagToMovie(movieid, tagid) {
+    return axios.post(API_URL + `/belongs_to`, 
+    { movieid, tagid },
+    {
+      headers: authHeader(),
+    });
+  }
+  // AUTH FUNCTIONS
   login(username, password) {
     return axios.post(API_URL + "/rpc/login", { username, password });
   }

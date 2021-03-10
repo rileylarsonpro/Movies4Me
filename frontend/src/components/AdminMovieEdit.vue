@@ -28,7 +28,7 @@
             />
           </div>
           <div class="form-group">
-            <label >Release Date</label>
+            <label>Release Date</label>
             <input
               v-model="movie.releasedate"
               class="form-control"
@@ -36,7 +36,7 @@
             />
           </div>
           <div class="form-group">
-            <label >Movie Poster URL</label>
+            <label>Movie Poster URL</label>
             <input
               v-model="movie.movieposterurl"
               class="form-control"
@@ -54,7 +54,19 @@
           </div>
         </div>
       </form>
-
+      <br>
+      <form @submit.prevent="handleAdd">
+        Add New Tag to Movie:
+        <div class="form-group">
+          <select v-model="selectedTag" required>
+            <option disabled value="">Please select one</option>
+            <option v-for="tag in tags.filter(tag =>!(movieTags.find(movieTag => movieTag.tagid === tag.tagid)))" :key="tag.tagid">
+              {{ tag.tagname }}
+            </option>
+          </select>
+        </div>
+       <button class="btn btn-primary" type="submit">Add Tag to Movie</button>
+      </form>
       <div v-if="message" class="alert alert-danger">
         {{ message }}
       </div>
@@ -72,6 +84,9 @@ export default {
       loading: false,
       saving: false,
       movie: null,
+      movieTags: [],
+      tags: [],
+      selectedTag: null,
     };
   },
   methods: {
@@ -80,6 +95,12 @@ export default {
       Api.getMovieDetail(this.$route.params.id).then((res) => {
         this.movie = res.data[0];
         this.loading = false;
+        Api.getMovieTags(this.movie.movieid).then((res) => {
+          this.movieTags = res.data;
+        });
+        Api.getTags().then((res) => {
+          this.tags = res.data;
+        });
       });
     },
     handleSave() {
@@ -97,6 +118,12 @@ export default {
           this.loading = false;
         });
     },
+    handleAdd() {
+      let tagid = this.tags.find(tag => tag.tagname === this.selectedTag).tagid;
+      Api.addTagToMovie(this.movie.movieid, tagid).then( () => {
+          this.loadMovieDetail();
+        });
+    }
   },
   created: function () {
     this.loadMovieDetail();

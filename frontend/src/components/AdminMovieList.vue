@@ -66,17 +66,6 @@ export default {
         this.loading = false;
       });
     },
-    /*
-    publishArticle(articleid) {
-      Api.publishArticle(articleid)
-        .then(() => {
-          this.loadArticles();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },*/
-
     deleteMovie(movieid) {
       Api.deleteMovie(movieid)
         .then(() => {

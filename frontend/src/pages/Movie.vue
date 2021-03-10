@@ -74,6 +74,8 @@
 <script>
 import Api from "../api";
 import StarRating from "vue-star-rating";
+import { getUserIdFromToken } from "../auth";
+import { getJwtToken } from "../auth";
 
 export default {
   name: "MovieDetail",
@@ -105,6 +107,7 @@ export default {
       Api.getServicesForMovie(this.movie.movieid).then((res) => {
         this.movieServices = res.data;
       });
+      
     });
   },
   methods: {
@@ -122,6 +125,9 @@ export default {
       })
         .then(() => {
           this.loading = false;
+          if (this.rating > 3){
+            this.likeTags();
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -130,9 +136,16 @@ export default {
           }
           this.loading = false;
         });
+      this.reviewText = "";
       this.message="Your review has been sent to admin for approval";
 
     },
+    likeTags() {
+      let userId = getUserIdFromToken(getJwtToken())
+      this.movieTags.foreach( tag => {
+        Api.userlikesTag(userId, tag.tagid);
+      })
+    }
   },
 };
 </script>
