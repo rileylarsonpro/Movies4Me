@@ -70,7 +70,7 @@ ON c.categoryid = t.categoryid;
 
 -- users_seen_movies
 CREATE VIEW users_seen_movies AS
-SELECT u.userid, u.username, r.rating, r.movieid, m.releasedate, m.movietitle, m.movieposterurl 
+SELECT DISTINCT u.userid, u.username, r.movieid, m.releasedate, m.movietitle, m.movieposterurl 
 FROM users AS u
 INNER JOIN reviews AS r
 ON u.userid = r.userid

@@ -14,6 +14,9 @@ class Api {
   getSuggestedMovies(userid) {
     return axios.get(API_URL + `/users_movies_suggestions?userid=eq.${userid}`)
   }
+  getSeenMovies(userid) {
+    return axios.get(API_URL + `/users_seen_movies?userid=eq.${userid}`)
+  }
   getMovieDetail(id) {
     return axios.get(API_URL + `/movies?movieid=eq.${id}`);
   }

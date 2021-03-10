@@ -10,6 +10,10 @@
       <span v-for="movie in suggestedMovies" :key="movie.movieid">
         <movie-poster  :movie="movie"></movie-poster>
       </span>
+      <h3>Movies You Have Seen:</h3>
+      <span v-for="movie in seenMovies" :key="movie.movieid">
+        <movie-poster :movie="movie"></movie-poster>
+      </span>
       <h3>All Movies:</h3>
       <span v-for="movie in movies" :key="movie.movieid">
         <movie-poster  :movie="movie"></movie-poster>
@@ -33,6 +37,7 @@ export default {
     return {
       loading: false,
       movies: [],
+      seenMovies: [],
       suggestedMovies: [],
     };
   },
@@ -45,7 +50,10 @@ export default {
     Api.getMovies().then((res) => {
       this.movies = res.data;
     });
-
+    Api.getSeenMovies(getUserIdFromToken(getJwtToken())).then((res) => {
+      console.log("SEEN", res.data)
+      this.seenMovies = res.data;
+    });
     
   },
 };
