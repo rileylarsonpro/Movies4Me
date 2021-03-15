@@ -1,9 +1,5 @@
 <template>
   <div>
-    <b-jumbotron>
-      <p>Welcome to Movies 4 Me!</p>
-    </b-jumbotron>
-    <br />
     <div v-if="loading">Loading movies....</div>
     <container v-else>
       <h3>Movies Suggested For You:</h3>
@@ -35,7 +31,7 @@ export default {
   },
   data: function () {
     return {
-      loading: false,
+      loading: true,
       movies: [],
       seenMovies: [],
       suggestedMovies: [],

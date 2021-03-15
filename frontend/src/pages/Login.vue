@@ -51,6 +51,9 @@ import { setJwtToken } from "../auth";
 
 export default {
   name: "Login",
+  props: {
+    navbarRefresh: Function
+  },
   data() {
     return {
       username: "",
@@ -67,8 +70,10 @@ export default {
         .then((res) => {
           setJwtToken(res.data[0].token);
           if (this.$route.params.nextUrl != null) {
+            this.navbarRefresh()
             this.$router.push(this.$route.params.nextUrl);
           } else {
+            this.navbarRefresh()
             this.$router.push("/admin");
           }
         })

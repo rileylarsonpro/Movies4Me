@@ -1,12 +1,6 @@
 <template>
   <div>
     <div v-if="loading">Loading movies....</div>
-    <router-link to="admin/add" tag="b-button" class="float-right"
-      >Add movie</router-link
-    >
-    <router-link to="admin/reviews" tag="b-button" class="float-right"
-      >Approve Reviews</router-link
-    >
     <br /><br />
     <b-table-simple hover small caption-top responsive>
       <b-thead>

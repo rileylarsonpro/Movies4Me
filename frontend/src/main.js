@@ -70,7 +70,7 @@ const router = new VueRouter({
     { path: "/login", component: Login },
     { path: "/logout", component: Logout },
     { path: "/register", component: Register },
-    { path: "/user", component: User },
+    { path: "/myStuff", component: User },
     {
       path: "/admin",
       component: Admin,

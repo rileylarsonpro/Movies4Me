@@ -1,9 +1,10 @@
 <template>
   <div>
     <div v-if="loading">Loading movies....</div>
-    <router-link to="/admin" tag="b-button" class="float-right"
-      >Admin Movie</router-link
-    >
+     <b-breadcrumb>
+      <b-breadcrumb-item to="/admin"> Admin </b-breadcrumb-item>
+      <b-breadcrumb-item active>Approve Reviews</b-breadcrumb-item>
+    </b-breadcrumb>
     <br /><br />
     <b-table-simple hover small caption-top responsive>
       <b-thead>
