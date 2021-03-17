@@ -85,4 +85,4 @@ FROM users_platforms_movies AS upm
 INNER JOIN movie_has_tags AS mht
 ON upm.movieid = mht.movieid
 INNER JOIN users_likes_tags AS mlt
-ON mlt.tagid = mht.tagid;
+ON mlt.userid = upm.userid AND mlt.tagid = mht.tagid
