@@ -15,6 +15,16 @@
       <b-row>
         <b-col>
           <img :src="movie.movieposterurl" />
+          <div v-for="tag in movieTags" :key="tag.tagid">
+            {{ tag.categoryname }}: {{ tag.tagname }}
+          </div>
+          <br>
+          <div v-if="movieServices != []">
+            <b>Streaming on:</b>
+            <div v-for="service in movieServices" :key="service.platformregionid">
+            {{ service.regionname }} {{ service.platformname }}
+          </div>
+          </div>
         </b-col>
         <b-col>
           <form name="form" @submit.prevent="handleAdd">
@@ -51,20 +61,6 @@
             <div>{{ review.datewritten }}</div>
               <div><em>{{ review.reviewtext }}</em></div>
           </b-container>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col>
-          <div v-for="tag in movieTags" :key="tag.tagid">
-            {{ tag.categoryname }}: {{ tag.tagname }}
-          </div>
-          <br>
-          <div v-if="movieServices != []">
-            <b>Streaming on:</b>
-            <div v-for="service in movieServices" :key="service.platformregionid">
-            {{ service.regionname }} {{ service.platformname }}
-          </div>
-          </div>
         </b-col>
       </b-row>
     </b-container>
